@@ -5,17 +5,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TaskFive<T> {
-    public static <T> Stream<String> zip(Supplier<Stream<T>> first, Supplier<Stream<T>> second){
+    public static <T> Stream<T> zip(Supplier<Stream<T>> first, Supplier<Stream<T>> second){
         List<T> firstList = first.get().collect(Collectors.toList());
         List<T> secondList = second.get().collect(Collectors.toList());
         int counter1 = (int) first.get().count();
         int counter2 = (int) second.get().count();
         if(counter1>counter2){
-            return second.get().map(p-> firstList.get(secondList.indexOf(p)) + ", " + p);
+            return (Stream<T>) second.get().map(p-> firstList.get(secondList.indexOf(p)) + ", " + p);
         }
 
         else {
-            return first.get().map(p-> p + ", " + secondList.get(firstList.indexOf(p)));
+            return (Stream<T>) first.get().map(p-> p + ", " + secondList.get(firstList.indexOf(p)));
         }
 
     }
